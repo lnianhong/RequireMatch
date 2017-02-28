@@ -1,7 +1,7 @@
 clc;clear;
 data_max = 1000;
 data_min = 0;
-data_num = 50000;
+data_num = 500000;
 while 1
     dataA = randi([data_min data_max],data_num,1);
     dataB = randi([data_min data_max],data_num,1);

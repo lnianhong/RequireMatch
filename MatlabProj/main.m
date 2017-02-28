@@ -1,7 +1,7 @@
 clc;clear;
 data_max = 1000;
 data_min = 0;
-data_num = 5000;
+data_num = 500000;
 file_name = ['randsample_',num2str(data_max),'_',num2str(data_num),'.mat'];
 load(file_name);
 

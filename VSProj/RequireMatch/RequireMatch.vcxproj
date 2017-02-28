@@ -110,6 +110,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Exchange_Item.cpp" />
+    <ClCompile Include="main2.cpp" />
+    <ClCompile Include="requirematch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CSVRow.h" />
+    <ClInclude Include="Exchange_Item.h" />
+    <ClInclude Include="requirematch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

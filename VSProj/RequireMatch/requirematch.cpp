@@ -3,19 +3,24 @@
 #include "CSVRow.h"
 #include <iostream>  
 #include <vector>  
+#include <string>
 #include <bitset>  
+#include <algorithm>
+#include <cstdlib>
 //using namespace std;
 /******************************************************************/
 // compare the priority level of the Items; 
-bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2)
+bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2) //only the res
 {
 	if (Item1.getResMoney() < Item2.getResMoney())
 		return true;
-	else if (Item1.getResMoney() > Item2.getResMoney())
-		return false;
 	else
-		//return true;
-		return Item1.getID() < Item2.getID();
+		return false;
+	//else if (Item1.getResMoney() > Item2.getResMoney())
+	//	return false;
+	//else
+	//	//return true;
+	//	return Item1.getID() < Item2.getID(); // It's useless
 }
 
 bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2)
@@ -53,6 +58,66 @@ bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename)
 	Rfile.close();
 	return true;
 }
+
+/*先排序然后通过移动“指针”的方式抵消重复的结果*/
+int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& Ter)
+{
+	int num_same(0);
+	typedef std::vector<Exchange_Item>::iterator ItemItertype;
+	sort(Rer.begin(), Rer.end(), compItemNoMaxWeight);
+	sort(Ter.begin(), Ter.end(), compItemNoMaxWeight);
+	std::vector<Exchange_Item>::size_type Rponiter(0);
+	std::vector<Exchange_Item>::size_type Tponiter(0);
+
+	for (ItemItertype Riter = Rer.begin() + Rponiter; Riter != Rer.end() && Tponiter < Ter.size(); ++Riter)
+	{
+		if ((*Riter).getResMoney())
+		{
+			for (ItemItertype Titer = Ter.begin() + Tponiter; Titer != Ter.end(); ++Titer)
+			{
+				if ((*Riter).getResMoney() == (*Titer).getResMoney())
+				{
+					(*Riter).addExchangeInfo((*Titer).getID(), (*Riter).getResMoney());
+					(*Riter).setResMoney(0);
+					(*Riter).weightIncrease();
+
+					(*Titer).addExchangeInfo((*Riter).getID(), (*Titer).getResMoney());
+					(*Titer).setResMoney(0);
+					(*Titer).weightIncrease();
+					Tponiter++;
+					Rponiter++;
+					num_same++;
+					break;
+				}
+				else
+				{
+					if ((*Riter).getResMoney() > (*Titer).getResMoney())
+						Tponiter++;
+					else
+					{
+						Rponiter++;
+						break;
+					}
+
+				}
+			}
+		}
+		else
+			Rponiter++;
+	}
+	return num_same;
+
+}
+/*获取已经处理完（Res_money==0）的条目*/
+std::vector<Exchange_Item>::size_type finishedNum(std::vector<Exchange_Item>& Rer)
+{
+	typedef std::vector<Exchange_Item>::iterator ItemItertype;
+	Exchange_Item zeroItem("ZERO", 0);
+	ItemItertype Rp = upper_bound(Rer.begin(), Rer.end(), zeroItem, compItemNoMaxWeight);
+	std::vector<Exchange_Item>::size_type Rp0_num = Rp - Rer.begin();
+	return Rp0_num;
+}
+
 /******************************************************************/
 // 子集和问题
 //void print(const vector<int> & w, const bitset<5> & x)

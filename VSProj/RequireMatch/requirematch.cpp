@@ -1,5 +1,6 @@
 #include "requirematch.h"
 #include "Exchange_Item.h"
+#include "CSVRow.h"
 #include <iostream>  
 #include <vector>  
 #include <bitset>  
@@ -39,8 +40,19 @@ bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2)
 			return compItemNoMaxWeight(Item1, Item2);
 	}
 }
-
-
+/*read csv data*/
+bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename)
+{
+	std::ifstream Rfile(csvfilename);
+	CSVRow	Rrow;
+	while (Rrow.readNextRow(Rfile))
+	{
+		//Exchange_Item tmp(row[0], atoi(row[1].c_str()));
+		Rer.push_back(Exchange_Item(Rrow[0], atoi(Rrow[1].c_str())));
+	}
+	Rfile.close();
+	return true;
+}
 /******************************************************************/
 // 子集和问题
 //void print(const vector<int> & w, const bitset<5> & x)

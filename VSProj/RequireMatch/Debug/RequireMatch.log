@@ -1,33 +1,5 @@
 ﻿  main2.cpp
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(32): warning C4018: “<”: 有符号/无符号不匹配
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(34): warning C4018: “<”: 有符号/无符号不匹配
-d:\microsoft visual studio\2017\community\vc\tools\msvc\14.10.24930\include\algorithm(2769): error C2280: “Exchange_Item &Exchange_Item::operator =(const Exchange_Item &)”: 尝试引用已删除的函数
-  e:\software_projects\requirematch\vsproj\requirematch\exchange_item.h(38): note: 编译器已在此处生成“Exchange_Item::operator =”
-  d:\microsoft visual studio\2017\community\vc\tools\msvc\14.10.24930\include\algorithm(2901): note: 参见对正在编译的函数 模板 实例化“void std::_Insertion_sort_unchecked<_RanIt,bool(__cdecl *)(Exchange_Item &,Exchange_Item &)>(_BidIt,_BidIt,_Pr &)”的引用
-          with
-          [
-              _RanIt=Exchange_Item *,
-              _BidIt=Exchange_Item *,
-              _Pr=bool (__cdecl *)(Exchange_Item &,Exchange_Item &)
-          ]
-  d:\microsoft visual studio\2017\community\vc\tools\msvc\14.10.24930\include\algorithm(2908): note: 参见对正在编译的函数 模板 实例化“void std::_Sort_unchecked1<_RanIt,int,bool(__cdecl *)(Exchange_Item &,Exchange_Item &)>(_RanIt,_RanIt,_Diff,_Pr &)”的引用
-          with
-          [
-              _RanIt=Exchange_Item *,
-              _Diff=int,
-              _Pr=bool (__cdecl *)(Exchange_Item &,Exchange_Item &)
-          ]
-  d:\microsoft visual studio\2017\community\vc\tools\msvc\14.10.24930\include\algorithm(2916): note: 参见对正在编译的函数 模板 实例化“void std::_Sort_unchecked<Exchange_Item*,bool(__cdecl *)(Exchange_Item &,Exchange_Item &)>(_RanIt,_RanIt,_Pr &)”的引用
-          with
-          [
-              _RanIt=Exchange_Item *,
-              _Pr=bool (__cdecl *)(Exchange_Item &,Exchange_Item &)
-          ]
-  e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(66): note: 参见对正在编译的函数 模板 实例化“void std::sort<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Exchange_Item>>>,bool(__cdecl *)(Exchange_Item &,Exchange_Item &)>(_RanIt,_RanIt,_Pr)”的引用
-          with
-          [
-              _RanIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Exchange_Item>>>,
-              _Pr=bool (__cdecl *)(Exchange_Item &,Exchange_Item &)
-          ]
-  e:\software_projects\requirematch\vsproj\requirematch\exchange_item.h(38): note: “Exchange_Item &Exchange_Item::operator =(const Exchange_Item &)”: 因为“Exchange_Item”有一个常量限定的非类类型的数据成员“Exchange_Item::max_weight”，所以已隐式删除函数
-  e:\software_projects\requirematch\vsproj\requirematch\exchange_item.h(34): note: 参见“Exchange_Item::max_weight”的声明
+e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(33): warning C4018: “<”: 有符号/无符号不匹配
+e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(35): warning C4018: “<”: 有符号/无符号不匹配
+  RequireMatch.vcxproj -> E:\Software_Projects\RequireMatch\VSProj\Debug\RequireMatch.exe
+  RequireMatch.vcxproj -> E:\Software_Projects\RequireMatch\VSProj\Debug\RequireMatch.pdb (Partial PDB)

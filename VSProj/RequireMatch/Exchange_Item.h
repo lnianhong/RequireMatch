@@ -1,5 +1,6 @@
 #pragma once
 #ifndef EXCHANGEITEM 
+#define EXCHANGEITEM 
 #include<string>
 #include<vector>
 #include<map>
@@ -12,6 +13,9 @@ public:
 	Exchange_Item( const std::string str, int m) : \
 		User_ID(str), money(m), res_money(m), weight(0), max_weight(5) {};
 	//virtual ~Exchange_Item();
+	Exchange_Item(const Exchange_Item&) = default;
+	Exchange_Item& operator=(const Exchange_Item&) = default;
+
 	bool setID(std::string str);
 	std::string getID() const;
 	bool setMoney(int m);
@@ -31,7 +35,7 @@ private:
 	int money;
 	int res_money;
 	int weight;
-	const int max_weight;
+	int max_weight;
 	std::vector<std::string> exchange_ID;
 	std::vector<int> exchange_money;
 

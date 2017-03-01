@@ -73,7 +73,8 @@ int Exchange_Item::maxWeight() const
 void Exchange_Item::print() 
 {
 	std::cout << "User_ID:" << User_ID << std::endl;
-	std::cout << "Money:" << money << std::endl;
+	std::cout << "Money:" << money << "\t"
+			  <<"Res_M:" << res_money << std::endl;
 	typedef std::vector<std::string>::size_type exchange_ID_type;
 	if (exchange_ID.size())
 	{
@@ -83,5 +84,5 @@ void Exchange_Item::print()
 				      << "exchange_money:" << exchange_money[i]<<std::endl;
 		}
 	}
-
+	std::cout << std::endl;
 }

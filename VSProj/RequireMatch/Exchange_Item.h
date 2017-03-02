@@ -28,6 +28,8 @@ public:
 	int getResMoney() const;
 	bool addExchangeInfo(std::string str, int m);
 	std::map<std::string, int> getExchangeInfo();
+	std::vector<std::string> getExchangeID();
+	std::vector<int> getExchangeMoney();
 	int maxWeight() const;
 	void print();
 

@@ -8,9 +8,15 @@
 #include <algorithm>
 #include <cstdlib>
 #include <iterator> 
+#include <fstream>
+#include <iostream>
 //using namespace std;
 /******************************************************************/
 // compare the priority level of the Items; 
+bool compID(const Exchange_Item& Item1, const Exchange_Item& Item2)
+{
+	return Item1.getID() < Item2.getID();
+}
 bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2) //only the res
 {
 	if (Item1.getResMoney() < Item2.getResMoney())
@@ -246,4 +252,36 @@ void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item
 		smallVec.insert(smallVec.begin() + Sp0_num, tmp1);
 		Sp0_num++;
 	}
+}
+// write the result
+void writeResult(std::vector<Exchange_Item>& Rer,std::string result_file)
+{
+	std::ofstream outfile;
+	outfile.open(result_file,std::ofstream::out);
+	typedef std::vector<std::string>::size_type exchange_ID_type;
+	outfile << "User_ID,Money,ResMoney,Times,ExID1,"
+		<< "Money1,ExID1,Money2,ExID3,Money3,ExID4,Money4,ExID5,Money5" << std::endl;
+
+	for (Itertype i = Rer.begin(); i < Rer.end(); i++)
+	{
+		outfile << (*i).getID() << ","
+				<< (*i).getMoney() << ","
+				<< (*i).getResMoney() << ","
+				<< (*i).getWeight() << ",";
+		for (exchange_ID_type j = 0; j<(*i).getWeight(); j++)
+		{
+			if (j== (*i).getWeight()-1) //the last one
+			{
+				outfile << ((*i).getExchangeID())[j] << ","
+					<< ((*i).getExchangeMoney())[j] ;
+			}
+			else
+			{
+				outfile << ((*i).getExchangeID())[j] << ","
+					<< ((*i).getExchangeMoney())[j] << ",";
+			}			
+		}
+		outfile << std::endl;
+	}
+	outfile.close();
 }

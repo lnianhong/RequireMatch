@@ -70,6 +70,16 @@ std::map<std::string, int> Exchange_Item::getExchangeInfo()
 	return ExchangeInfo;
 
 }
+
+std::vector<std::string> Exchange_Item::getExchangeID()
+{
+	return exchange_ID;
+}
+std::vector<int> Exchange_Item::getExchangeMoney()
+{
+	return exchange_money;
+}
+
 int Exchange_Item::maxWeight() const
 {
 	return max_weight;

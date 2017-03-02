@@ -6,6 +6,7 @@
 #include <string>
 
 typedef std::vector<Exchange_Item>::iterator Itertype;
+bool compID(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2);
 
@@ -20,6 +21,7 @@ bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& i
 void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
 				std::vector<Exchange_Item>::difference_type & Sp0_num,
 				std::vector<Exchange_Item>::difference_type & Lp0_num);
+void writeResult(std::vector<Exchange_Item>& Rer, std::string result_file);
 //class Solution {
 //public:
 //	vector&lt; vector &gt; findZeroSumInSortedArr(vector &num, int begin, int count, int target)

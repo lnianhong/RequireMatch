@@ -1,0 +1,12 @@
+User_ID,Money,ResMoney,Times,ExID1,Money1,ExID1,Money2,ExID3,Money3,ExID4,Money4,ExID5,Money5
+T1,3,0,1,R5,3
+T10,8,0,1,R2,8
+T11,4,0,1,R8,4
+T2,0,0,0,
+T3,1,0,1,R3,1
+T4,9,0,1,R4,9
+T5,4,0,1,R7,4
+T6,3,0,1,R6,3
+T7,6,0,2,R1,5,R2,1
+T8,1,0,1,R2,1
+T9,2,0,1,R4,2

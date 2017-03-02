@@ -1,7 +1,10 @@
 ﻿  requirematch.cpp
-e:\software_projects\requirematch\vsproj\requirematch\requirematch.cpp(161): warning C4018: “>=”: 有符号/无符号不匹配
+e:\software_projects\requirematch\vsproj\requirematch\requirematch.cpp(167): warning C4018: “>=”: 有符号/无符号不匹配
+e:\software_projects\requirematch\vsproj\requirematch\requirematch.cpp(271): warning C4018: “<”: 有符号/无符号不匹配
   main2.cpp
-  Exchange_Item.cpp
+e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(53): warning C4018: “<”: 有符号/无符号不匹配
   正在生成代码...
+  正在跳过...(未检测到相关更改)
+  Exchange_Item.cpp
   RequireMatch.vcxproj -> E:\Software_Projects\RequireMatch\VSProj\Debug\RequireMatch.exe
   RequireMatch.vcxproj -> E:\Software_Projects\RequireMatch\VSProj\Debug\RequireMatch.pdb (Partial PDB)

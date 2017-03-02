@@ -23,71 +23,65 @@ void printSubsetSum(const vector<int> & w,const vector<bool>& x)
 	cout << "}";
 	cout << endl;
 }
-bool subsetSum(const vector<int>& w, vector<bool>& x, int sum, int targetsum, int k)
+bool subsetSum(const vector<int>& w, vector<bool> x, int sum, int targetsum, int k)
 {
 	x[k] = true; // try one branch of tree  
 	if (sum + w[k] == targetsum)
 		printSubsetSum(w,x); // we have a solution  
-	else
-	
-		if (k + 1 < w.size() && sum + w[k] <= targetsum) // include the w[k]
-			subsetSum(w, x, sum + w[k], targetsum, k + 1); // the maxium k is w.size-2
-		if (k + 1 < w.size() && sum + w[k + 1] <= targetsum)
+	else if (k + 1 < w.size() && sum + w[k] <= targetsum) // include the w[k]
+		subsetSum(w, x, sum + w[k], targetsum, k + 1); // the maxium k is w.size-2
+	if (k + 1 < w.size() && sum + w[k + 1] <= targetsum)
 		{
 			x[k] = false; // uniclude the w[k]
 			subsetSum(w, x, sum, targetsum, k + 1); // the maxium k is w.size-2
 		}
-	
 	return true;
-
 }
+
+bool subsetSumv3(const vector<int>& w, vector<bool> x, int sum, int targetsum, int k)
+{
+	if (k >= w.size()|| sum >= targetsum)
+		return true;
+	x[k] = true;
+	if (sum+w[k] == targetsum)
+		printSubsetSum(w, x);
+	//include w[k]
+	subsetSumv3(w, x, sum+w[k], targetsum, k+1);
+	//uninclude w[k]
+	x[k] = false;
+	subsetSumv3(w, x, sum, targetsum, k+1);
+}
+
+bool subsetSumv2(const vector<int>& w, vector<bool> x,int targetsum, int n)
+{
+	if(n<0 || targetsum<=0)
+		return true;
+	x[n] = true;
+	if (targetsum == w[n])
+		printSubsetSum(w, x);
+	//include W[n]
+	subsetSumv2(w, x,targetsum-w[n], n-1);
+	//uninclude W[n]
+	x[n] = false;
+	subsetSumv2(w, x, targetsum, n - 1);
+}
+
 //bool comp( Exchange_Item& Item1, Exchange_Item& Item2)
 //{
 //	return true;
 //}
 
-void print(const vector<int> & w, const bitset<5> & x)
-{
-	cout << "{";
-	for (unsigned int i = 0; i < x.size(); ++i)
-	{
-		if (x[i])
-		{
-			cout << w[i] << " ";
-		}
-	}
-	cout << "}";
-	cout << endl;
-}
-bool subsetsum(const vector<int>& w, bitset<5>& x, int sum, int targetsum, int k)
-{
-	x[k] = 1; // try one branch of tree  
-	if (sum + w[k] == targetsum)
-		print(w, x); // we have a solution  
-	else
-
-		if (k + 1 < w.size() && sum + w[k] <= targetsum) // include the w[k]
-			subsetsum(w, x, sum + w[k], targetsum, k + 1); // the maxium k is w.size-2
-		if (k + 1 < w.size() && sum + w[k + 1] <= targetsum)
-		{
-			x[k] = 0; // uniclude the w[k]
-			subsetsum(w, x, sum, targetsum, k + 1); // the maxium k is w.size-2
-		}
-	
-	return true;
-
-}
 
 int main() {
 	//{ 2,5,15,8,20 };
-	int arr[] = { 2,5,15,8,20 };
+	int arr[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,20 };
+	//int arr[] = { 0,20 };
 	vector<int> W(arr, arr + sizeof(arr) / sizeof(int));
 	vector<bool> included(sizeof(arr) / sizeof(int), false);
-	subsetSum(W, included, 0, 20, 0);
-
-	vector<int> W2 = { 2,5,15,8,20 };
-	bitset<5> X;
-	subsetsum(W2, X, 0, 20, 0);
+	vector<bool> includedv2(sizeof(arr) / sizeof(int), false);
+	subsetSumv3(W, included, 0, 20, 0);
+	cout << "*********v2********" << endl;
+	subsetSumv2(W, includedv2, 20, W.size()-1);
 
 	system("pause");
 	return 0;

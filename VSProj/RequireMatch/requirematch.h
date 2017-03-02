@@ -21,6 +21,9 @@ bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& i
 void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
 				std::vector<Exchange_Item>::difference_type & Sp0_num,
 				std::vector<Exchange_Item>::difference_type & Lp0_num);
+std::vector<int> getExTimes(std::vector<Exchange_Item>& Rer);
+int sumExTimes(std::vector<Exchange_Item>& Rer);
+Itertype maxExTimes(std::vector<Exchange_Item>& Rer);
 void writeResult(std::vector<Exchange_Item>& Rer, std::string result_file);
 //class Solution {
 //public:

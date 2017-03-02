@@ -10,6 +10,7 @@
 #include <iterator> 
 #include <fstream>
 #include <iostream>
+#include <numeric>
 //using namespace std;
 /******************************************************************/
 // compare the priority level of the Items; 
@@ -253,6 +254,35 @@ void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item
 		Sp0_num++;
 	}
 }
+
+// get sum and maxium  of the exchange Times
+std::vector<int> getExTimes(std::vector<Exchange_Item>& Rer)
+{
+	std::vector<int> ExTimes(Rer.size(), 0);
+	int j(0);
+	for (Itertype i = Rer.begin(); i < Rer.end(); i++)
+	{
+		ExTimes[j] = (*i).getWeight();
+		j++;
+	}
+	return ExTimes;
+}
+
+int sumExTimes(std::vector<Exchange_Item>& Rer)
+{
+	std::vector<int> ExTimes = getExTimes(Rer);
+	return std::accumulate(ExTimes.begin(), ExTimes.end(), 0);
+}
+
+Itertype maxExTimes(std::vector<Exchange_Item>& Rer)
+{
+	std::vector<int> ExTimes = getExTimes(Rer);
+	std::vector<int>::iterator it = std::max_element(ExTimes.begin(), ExTimes.end());
+	return Rer.begin() + distance(ExTimes.begin(),it);
+}
+
+
+
 // write the result
 void writeResult(std::vector<Exchange_Item>& Rer,std::string result_file)
 {

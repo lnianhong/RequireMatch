@@ -129,7 +129,9 @@ int main() {
 
 	clock_t finish = clock();
 	cout << double(finish - start)/ CLOCKS_PER_SEC << " (s) " << endl;
-
+	cout << "Sum of exchange times:\t"<<sumExTimes(Rer) << endl;
+	cout << "Maxium exchange times of Rer:\t" << (*maxExTimes(Rer)).getWeight() << endl;
+	cout << "Maxium exchange times of Ter:\t" << (*maxExTimes(Ter)).getWeight() << endl;
 	string Rresult_file = "R_result_" + suffix + ".csv";
 	string Tresult_file = "T_result_" + suffix + ".csv";
 	writeResult(Rer, Rresult_file);

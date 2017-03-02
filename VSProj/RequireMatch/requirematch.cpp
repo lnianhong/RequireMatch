@@ -7,6 +7,7 @@
 #include <bitset>  
 #include <algorithm>
 #include <cstdlib>
+#include <iterator> 
 //using namespace std;
 /******************************************************************/
 // compare the priority level of the Items; 
@@ -63,17 +64,16 @@ bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename)
 int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& Ter)
 {
 	int num_same(0);
-	typedef std::vector<Exchange_Item>::iterator ItemItertype;
 	sort(Rer.begin(), Rer.end(), compItemNoMaxWeight);
 	sort(Ter.begin(), Ter.end(), compItemNoMaxWeight);
 	std::vector<Exchange_Item>::size_type Rponiter(0);
 	std::vector<Exchange_Item>::size_type Tponiter(0);
 
-	for (ItemItertype Riter = Rer.begin() + Rponiter; Riter != Rer.end() && Tponiter < Ter.size(); ++Riter)
+	for (Itertype Riter = Rer.begin() + Rponiter; Riter != Rer.end() && Tponiter < Ter.size(); ++Riter)
 	{
 		if ((*Riter).getResMoney())
 		{
-			for (ItemItertype Titer = Ter.begin() + Tponiter; Titer != Ter.end(); ++Titer)
+			for (Itertype Titer = Ter.begin() + Tponiter; Titer != Ter.end(); ++Titer)
 			{
 				if ((*Riter).getResMoney() == (*Titer).getResMoney())
 				{
@@ -98,7 +98,6 @@ int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& 
 						Rponiter++;
 						break;
 					}
-
 				}
 			}
 		}
@@ -109,45 +108,81 @@ int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& 
 
 }
 /*获取已经处理完（Res_money==0）的条目*/
-std::vector<Exchange_Item>::size_type finishedNum(std::vector<Exchange_Item>& Rer)
+std::vector<Exchange_Item>::difference_type finishedNum(std::vector<Exchange_Item>& Rer)
 {
-	typedef std::vector<Exchange_Item>::iterator ItemItertype;
 	Exchange_Item zeroItem("ZERO", 0);
-	ItemItertype Rp = upper_bound(Rer.begin(), Rer.end(), zeroItem, compItemNoMaxWeight);
-	std::vector<Exchange_Item>::size_type Rp0_num = Rp - Rer.begin();
+	Itertype Rp = upper_bound(Rer.begin(), Rer.end(), zeroItem, compItemNoMaxWeight);
+	std::vector<Exchange_Item>::difference_type Rp0_num = distance(Rer.begin(),Rp);
 	return Rp0_num;
 }
 
 /******************************************************************/
-// 子集和问题
-//void print(const vector<int> & w, const bitset<5> & x)
-//{
-//	cout << "{";
-//	for (unsigned int i = 0; i < x.size(); ++i)
-//	{
-//		if (x[i])
-//		{
-//			cout << w[i] << " ";
-//		}
-//	}
-//	cout << "}";
-//	cout << endl;
-//}
-//bool subsetsum(const vector<int>& w, bitset<5>& x, int sum, int targetsum, int k)
-//{
-//	x[k] = 1; // try one branch of tree  
-//	if (sum + w[k] == targetsum)
-//		print(w, x); // we have a solution  
-//	else
-//	{
-//		if (k + 1 < w.size() && sum + w[k] <= targetsum) // include the w[k]
-//			subsetsum(w, x, sum + w[k], targetsum, k + 1); // the maxium k is w.size-2
-//		if (k + 1 < w.size() && sum + w[k + 1] <= targetsum)
-//		{
-//			x[k] = 0; // uniclude the w[k]
-//			subsetsum(w, x, sum, targetsum, k + 1); // the maxium k is w.size-2
-//		}
-//	}
-//	return true;
-//
-//}
+//子集和问题
+//twosum
+bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target,
+			Itertype& it1,Itertype& it2)
+{
+	last--;
+	while (first!=last)
+	{ 
+		if ((*first).getResMoney() + (*last).getResMoney() == target.getResMoney())
+		{
+			it1 = first;
+			it2 = last;
+			return true;
+		}
+		else if ((*first).getResMoney() + (*last).getResMoney() < target.getResMoney())
+			first++;
+		else
+			last--;
+	}
+	return false;
+}
+
+//subsetsum
+void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x)
+{
+	std::cout << "{";
+	for (unsigned int i = 0; i < x.size(); ++i)
+	{
+		if (x[i])
+		{
+			std::cout << w[i] << " ";
+		}
+	}
+	std::cout << "}";
+	std::cout << std::endl;
+}
+
+//先返回元素多的
+//decrease order
+bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, int k)
+{
+	if (k >= w.size() || sum >= targetsum)
+		return true;
+	x[k] = true;
+	if (sum + w[k] == targetsum)
+		printSubsetSum(w, x);
+	//include w[k]
+	subsetSum(w, x, sum + w[k], targetsum, k + 1);
+	//uninclude w[k]
+	x[k] = false;
+	subsetSum(w, x, sum, targetsum, k + 1);
+	return false;
+}
+//increase order
+bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n)//先返回元素少的
+{
+	if (n<0 || targetsum <= 0)
+		return true;
+	x[n] = true;
+	if (targetsum == w[n])
+		printSubsetSum(w, x);
+	//include W[n]
+	subsetSum(w, x, targetsum - w[n], n - 1);
+	//uninclude W[n]
+	x[n] = false;
+	subsetSum(w, x, targetsum, n - 1);
+	return false;
+}
+

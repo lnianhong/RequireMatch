@@ -1,8 +1,6 @@
-﻿  main2.cpp
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(31): warning C4018: “<”: 有符号/无符号不匹配
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(33): warning C4018: “<”: 有符号/无符号不匹配
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(43): warning C4018: “>=”: 有符号/无符号不匹配
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(53): warning C4715: “subsetSumv3”: 不是所有的控件路径都返回值
-e:\software_projects\requirematch\vsproj\requirematch\main2.cpp(67): warning C4715: “subsetSumv2”: 不是所有的控件路径都返回值
+﻿  requirematch.cpp
+e:\software_projects\requirematch\vsproj\requirematch\requirematch.cpp(161): warning C4018: “>=”: 有符号/无符号不匹配
+  main2.cpp
+  正在生成代码...
   RequireMatch.vcxproj -> E:\Software_Projects\RequireMatch\VSProj\Debug\RequireMatch.exe
   RequireMatch.vcxproj -> E:\Software_Projects\RequireMatch\VSProj\Debug\RequireMatch.pdb (Partial PDB)

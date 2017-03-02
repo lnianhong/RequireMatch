@@ -4,13 +4,19 @@
 #include"Exchange_Item.h"
 #include <vector>  
 #include <string>
+
+typedef std::vector<Exchange_Item>::iterator Itertype;
 bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2);
 
 bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename);
 int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& Ter);
-std::vector<Exchange_Item>::size_type finishedNum(std::vector<Exchange_Item>& Rer);
+std::vector<Exchange_Item>::difference_type finishedNum(std::vector<Exchange_Item>& Rer);
 
+void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x);
+bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, int k);
+bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n);
+bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& it1, Itertype& it2);
 //class Solution {
 //public:
 //	vector&lt; vector &gt; findZeroSumInSortedArr(vector &num, int begin, int count, int target)

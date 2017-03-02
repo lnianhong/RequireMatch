@@ -6,21 +6,24 @@
 #include <string>
 
 typedef std::vector<Exchange_Item>::iterator Itertype;
+typedef std::vector<Exchange_Item>::difference_type difftype;
+
 bool compID(const Exchange_Item& Item1, const Exchange_Item& Item2);
+bool compOrder(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2);
 
 bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename);
+bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename, int startOrder);
 int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& Ter);
-std::vector<Exchange_Item>::difference_type finishedNum(std::vector<Exchange_Item>& Rer);
+difftype finishedNum(std::vector<Exchange_Item>& Rer);
 
 void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x);
 bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, int k);
 bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n);
 bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& it1, Itertype& it2);
 void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
-				std::vector<Exchange_Item>::difference_type & Sp0_num,
-				std::vector<Exchange_Item>::difference_type & Lp0_num);
+					difftype & Sp0_num,difftype & Lp0_num);
 std::vector<int> getExTimes(std::vector<Exchange_Item>& Rer);
 int sumExTimes(std::vector<Exchange_Item>& Rer);
 Itertype maxExTimes(std::vector<Exchange_Item>& Rer);

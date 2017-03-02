@@ -18,6 +18,10 @@ bool compID(const Exchange_Item& Item1, const Exchange_Item& Item2)
 {
 	return Item1.getID() < Item2.getID();
 }
+bool compOrder(const Exchange_Item& Item1, const Exchange_Item& Item2)
+{
+	return Item1.getInitOrder() < Item2.getInitOrder();
+}
 bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2) //only the res
 {
 	if (Item1.getResMoney() < Item2.getResMoney())
@@ -62,6 +66,20 @@ bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename)
 	{
 		//Exchange_Item tmp(row[0], atoi(row[1].c_str()));
 		Rer.push_back(Exchange_Item(Rrow[0], atoi(Rrow[1].c_str())));
+	}
+	Rfile.close();
+	return true;
+}
+
+bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename,int startOrder)
+{
+	std::ifstream Rfile(csvfilename);
+	CSVRow	Rrow;
+	while (Rrow.readNextRow(Rfile))
+	{
+		//Exchange_Item tmp(row[0], atoi(row[1].c_str()));
+		Rer.push_back(Exchange_Item(Rrow[0], atoi(Rrow[1].c_str()), startOrder));
+		startOrder++;
 	}
 	Rfile.close();
 	return true;
@@ -115,11 +133,11 @@ int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& 
 
 }
 /*获取已经处理完（Res_money==0）的条目*/
-std::vector<Exchange_Item>::difference_type finishedNum(std::vector<Exchange_Item>& Rer)
+difftype finishedNum(std::vector<Exchange_Item>& Rer)
 {
 	Exchange_Item zeroItem("ZERO", 0);
 	Itertype Rp = upper_bound(Rer.begin(), Rer.end(), zeroItem, compItemNoMaxWeight);
-	std::vector<Exchange_Item>::difference_type Rp0_num = distance(Rer.begin(),Rp);
+	difftype Rp0_num = distance(Rer.begin(),Rp);
 	return Rp0_num;
 }
 
@@ -195,12 +213,11 @@ bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, in
 
 //交换问题
 void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
-				 std::vector<Exchange_Item>::difference_type & Sp0_num,
-				 std::vector<Exchange_Item>::difference_type & Lp0_num )
+				 difftype & Sp0_num,difftype & Lp0_num )
 {
 	Itertype it1, it2;
 	Exchange_Item tmp, tmp1, tmp2;
-	std::vector<Exchange_Item>::difference_type dist1, dist2;
+	difftype dist1, dist2;
 
 	if (has2sum(smallVec.begin() + Sp0_num, smallVec.end(), largeVec.back(), it1, it2))//it1 is in the front of it2
 	{

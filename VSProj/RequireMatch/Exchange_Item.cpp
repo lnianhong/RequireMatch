@@ -20,6 +20,12 @@ int Exchange_Item::getMoney() const
 {
 	return money;
 }
+
+int Exchange_Item::getInitOrder() const
+{
+	return initOrder;
+}
+
 bool Exchange_Item::setWeight(int w) 
 {
 	weight = w;

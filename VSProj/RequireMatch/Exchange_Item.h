@@ -23,6 +23,7 @@ public:
 	bool setWeight(int w);
 	int getWeight() const;
 	bool weightIncrease();
+	bool weightIncrease(int i);
 	bool setResMoney(int res);
 	int getResMoney() const;
 	bool addExchangeInfo(std::string str, int m);

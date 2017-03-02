@@ -33,7 +33,7 @@ bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2)
 		else //Item2.getWeight() <= Item1.getWeight()
 		{
 			if (Item2.getWeight() == Item1.getWeight()) 
-				return compItemNoMaxWeight(Item1,Item2);// Item2 未达到最大次数
+				return compItemNoMaxWeight(Item1,Item2);// Item1 item2达到最大次数
 			else 
 				return false;		
 		}
@@ -186,3 +186,64 @@ bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, in
 	return false;
 }
 
+//交换问题
+void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
+				 std::vector<Exchange_Item>::difference_type & Sp0_num,
+				 std::vector<Exchange_Item>::difference_type & Lp0_num )
+{
+	Itertype it1, it2;
+	Exchange_Item tmp, tmp1, tmp2;
+	std::vector<Exchange_Item>::difference_type dist1, dist2;
+
+	if (has2sum(smallVec.begin() + Sp0_num, smallVec.end(), largeVec.back(), it1, it2))//it1 is in the front of it2
+	{
+		//set the exchange info
+		largeVec.back().addExchangeInfo((*it1).getID(), (*it1).getResMoney());
+		largeVec.back().addExchangeInfo((*it2).getID(), (*it2).getResMoney());
+		largeVec.back().weightIncrease(2);
+		largeVec.back().setResMoney(0);
+		tmp = largeVec.back();
+		(*it1).addExchangeInfo(tmp.getID(), (*it1).getResMoney());
+		(*it1).weightIncrease();
+		(*it1).setResMoney(0);
+		(*it2).addExchangeInfo(tmp.getID(), (*it2).getResMoney());
+		(*it2).weightIncrease();
+		(*it2).setResMoney(0);
+		tmp1 = (*it1);
+		tmp2 = (*it2);
+		dist1 = distance(smallVec.begin(), it1);
+		dist2 = distance(smallVec.begin(), it2);
+		//change the Ters 
+		largeVec.pop_back();
+		largeVec.insert(largeVec.begin() + Lp0_num, tmp);
+		Lp0_num++;
+		//change the Rers 
+		smallVec.erase(smallVec.begin() + dist2);
+		smallVec.erase(smallVec.begin() + dist1);
+		smallVec.insert(smallVec.begin() + Sp0_num, tmp2);
+		Sp0_num++;
+		smallVec.insert(smallVec.begin() + Sp0_num, tmp1);
+		Sp0_num++;
+	}
+	else //处理2个Item，一个为0，一个减小并插入（另一列中不会有相等的数）
+	{
+		largeVec.back().addExchangeInfo(smallVec.back().getID(), smallVec.back().getResMoney());
+		largeVec.back().weightIncrease();
+		largeVec.back().setResMoney(largeVec.back().getResMoney() - smallVec.back().getResMoney());
+
+		smallVec.back().addExchangeInfo(largeVec.back().getID(), smallVec.back().getResMoney());
+		smallVec.back().weightIncrease();
+		smallVec.back().setResMoney(0);
+		//change the largeVec 
+		tmp = largeVec.back();
+		largeVec.pop_back();
+		// 插在第一个大于等于的值的前面
+		Itertype iter_insert = lower_bound(largeVec.begin() + Lp0_num, largeVec.end(), tmp, compItem);
+		largeVec.insert(iter_insert, tmp);
+		//change the smallVec
+		tmp1 = smallVec.back();
+		smallVec.pop_back();
+		smallVec.insert(smallVec.begin() + Sp0_num, tmp1);
+		Sp0_num++;
+	}
+}

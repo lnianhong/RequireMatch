@@ -34,6 +34,11 @@ bool Exchange_Item::weightIncrease()
 	weight = weight + 1;
 	return true;
 }
+bool Exchange_Item::weightIncrease(int i)
+{
+	weight = weight + i;
+	return true;
+}
 bool Exchange_Item::setResMoney(int res) 
 {
 	res_money = res;

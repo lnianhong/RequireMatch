@@ -17,6 +17,9 @@ void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x);
 bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, int k);
 bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n);
 bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& it1, Itertype& it2);
+void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
+				std::vector<Exchange_Item>::difference_type & Sp0_num,
+				std::vector<Exchange_Item>::difference_type & Lp0_num);
 //class Solution {
 //public:
 //	vector&lt; vector &gt; findZeroSumInSortedArr(vector &num, int begin, int count, int target)

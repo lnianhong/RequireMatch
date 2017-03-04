@@ -27,7 +27,7 @@ using namespace std;
 //}
 
 int main() {
-	string suffix("part");
+	string suffix("_S");
 	clock_t start = clock();
 	ExContainer Rers;//contain of receivers
 	ExContainer Ters;//contain of transimiters
@@ -47,12 +47,10 @@ int main() {
 	//Rers.begin()+Rp0_num ponited the first nonezeroItem
 	difftype Tp0_num = finishedNum(Ters);
 
-	//string Rresult_file = "R_result_" + suffix + ".csv";
-	//string Tresult_file = "T_result_" + suffix + ".csv";
-	//writeResult(Rers, Rresult_file);
-	//writeResult(Ters, Tresult_file);
+	ExContainer::size_type Rers_size = Rers.size();
+	ExContainer::size_type Ters_size = Ters.size();
 
-	while (Rp0_num<Rers.size() && Tp0_num < Ters.size())
+	while (Rp0_num<Rers_size && Tp0_num < Ters_size)
 	{
 		if (Ters.back().getResMoney() > Rers.back().getResMoney())
 		{
@@ -64,7 +62,10 @@ int main() {
 	Rers.sort(compOrder);
 	Ters.sort(compOrder);
 	clock_t finish = clock();
-	cout << double(finish - start)/ CLOCKS_PER_SEC << " (s) " << endl;
+	string result_log = "log_" + suffix + ".txt";
+	double t = double(finish - start) / CLOCKS_PER_SEC;
+	writeLog(result_log, Rers, Ters, t);
+	cout << t << " (s) " << endl;
 	cout << "Sum of exchange times:\t"<<sumExTimes(Rers) << endl;
 	cout << "Maxium exchange times of Rers:\t" << (*maxExTimes(Rers)).getWeight() << endl;
 	cout << "Maxium exchange times of Ters:\t" << (*maxExTimes(Ters)).getWeight() << endl;

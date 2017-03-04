@@ -34,6 +34,7 @@ std::vector<int> getExTimes(ExContainer& Rers);
 int sumExTimes(ExContainer& Rers);
 Itertype maxExTimes(ExContainer& Rers);
 void writeResult(ExContainer& Rers, std::string result_file);
+void writeLog(std::string result_log, ExContainer& Rers, ExContainer& Ters, double t);
 //class Solution {
 //public:
 //	vector&lt; vector &gt; findZeroSumInSortedArr(vector &num, int begin, int count, int target)

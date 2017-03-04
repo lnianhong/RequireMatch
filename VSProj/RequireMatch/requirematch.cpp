@@ -314,6 +314,18 @@ Itertype maxExTimes(ExContainer& Rers)
 
 
 // write the result
+
+void writeLog(std::string result_log, ExContainer& Rers, ExContainer& Ters, double t)
+{
+	std::ofstream outfile;
+	outfile.open(result_log, std::ofstream::out);
+
+	outfile << "Time:"<< t << " (s) " << std::endl;
+	outfile << "Sum of exchange times:\t" << sumExTimes(Rers) << std::endl;
+	outfile << "Maxium exchange times of Rers:\t" << (*maxExTimes(Rers)).getWeight() << std::endl;
+	outfile << "Maxium exchange times of Ters:\t" << (*maxExTimes(Ters)).getWeight() << std::endl;
+	outfile.close();
+}
 void writeResult(ExContainer& Rers,std::string result_file)
 {
 	std::ofstream outfile;

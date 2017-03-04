@@ -2,33 +2,33 @@ clc;clear;
 clc;clear;
 data_receive = csvread('receiver0228.csv',1,0);
 data_tran = csvread('transmitter0228.csv',1,0);
-dataA = data_tran(:,2);
-dataB = data_receive(:,2);
-if sum(dataA)~= sum(dataB)
+dataT = data_tran(:,2);
+dataR = data_receive(:,2);
+if sum(dataT)~= sum(dataR)
     error('The data is error');
 end
 excTime = 0;
 
 
-while (sum(dataA>0) && sum(dataB>0)) 
-    [C,ia,ib] = intersect(dataA,dataB);
-    dataA(ia) = 0;
-    dataB(ib) = 0;
+while (sum(dataT>0) && sum(dataR>0)) 
+    [C,ia,ib] = intersect(dataT,dataR);
+    dataT(ia) = 0;
+    dataR(ib) = 0;
     excTime = excTime+sum(C>0);
-    if sum(dataA)==0 || sum(dataB)==0 
+    if sum(dataT)==0 || sum(dataR)==0 
         break;
     end
-    dataA = sort(dataA);
-    dataB = sort(dataB);
-    if dataA(end)>= dataB(end)
-        dataA(end) = dataA(end)-dataB(end);
-        dataB(end)=0;
+    dataT = sort(dataT);
+    dataR = sort(dataR);
+    if dataT(end)>= dataR(end)
+        dataT(end) = dataT(end)-dataR(end);
+        dataR(end)=0;
     else %dataA(end)< dataB(end)
-        dataB(end) = dataB(end)-dataA(end);
-        dataA(end) = 0;
+        dataR(end) = dataR(end)-dataT(end);
+        dataT(end) = 0;
     end
-    dataA = dataA(dataA~=0);
-    dataB = dataB(dataB~=0);
+    dataT = dataT(dataT~=0);
+    dataR = dataR(dataR~=0);
     excTime = excTime+1;
 end
 

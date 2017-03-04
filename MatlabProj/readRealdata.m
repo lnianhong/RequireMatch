@@ -1,9 +1,10 @@
 clc;clear;
 data_receive = csvread('receiver0228.csv',1,0);
-data_tran = csvread('transmitter0228.csv',1,0);
+data_tran = csvread('transimitter0228.csv',1,0);
 
 dataT = data_tran(:,2);
 dataR = data_receive(:,2);
+
 indexT = length(dataT);
 indexR = length(dataR);
 
@@ -16,8 +17,8 @@ else
         dataT = tmp;
     end
 end
-csvwrite('receiver0228part.csv',[data_receive(1:indexR,1),dataR]);
-csvwrite('transmitter0228part.csv',[data_tran(1:indexT,1),dataT]);
+dlmwrite('receiver0228part.csv',[data_receive(1:indexR,1),dataR],'precision',16);
+dlmwrite('transimitter0228part.csv',[data_tran(1:indexT,1),dataT],'precision',16);
 
 
 

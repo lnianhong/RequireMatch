@@ -27,13 +27,14 @@ using namespace std;
 //}
 
 int main() {
-	string suffix("S");
+	string suffix("part");
 	clock_t start = clock();
 	vector<Exchange_Item> Rer;//contain of receivers
 	vector<Exchange_Item> Ter;//contain of transimiters
 	//typedef vector<Exchange_Item>::iterator ItemItertype;
-	string Rer_file = "receiver_" + suffix + ".csv";
-	string Ter_file	= "transimiter_" + suffix + ".csv";
+	string Rer_file = "receiver" + suffix + ".csv";
+	string Ter_file	= "transimitter" + suffix + ".csv";
+
 	readCSVdata(Rer, Rer_file,1);// initiation
 	readCSVdata(Ter, Ter_file,1);
 	int a = 1;
@@ -46,6 +47,11 @@ int main() {
 	difftype Rp0_num = finishedNum(Rer);
 	//Rer.begin()+Rp0_num ponited the first nonezeroItem
 	difftype Tp0_num = finishedNum(Ter);
+
+	//string Rresult_file = "R_result_" + suffix + ".csv";
+	//string Tresult_file = "T_result_" + suffix + ".csv";
+	//writeResult(Rer, Rresult_file);
+	//writeResult(Ter, Tresult_file);
 
 	Itertype it1, it2;
 	Exchange_Item tmp, tmp1, tmp2;
@@ -62,16 +68,16 @@ int main() {
 	sort(Rer.begin(), Rer.end(), compOrder);
 	sort(Ter.begin(), Ter.end(), compOrder);
 	//has2sum(Rer.begin()+ Rp0_num, Rer.end(),Ter.back(),it1,it2);
-	cout << "*************Receiver******************" << endl;
-	for (Itertype iter = Rer.begin(); iter != Rer.end(); ++iter)
-	{
-		(*iter).print();
-	}
-	cout << "*************Transimiter******************" << endl;
-	for (Itertype iter = Ter.begin(); iter != Ter.end(); ++iter)
-	{
-		(*iter).print();
-	}
+	//cout << "*************Receiver******************" << endl;
+	//for (Itertype iter = Rer.begin(); iter != Rer.end(); ++iter)
+	//{
+	//	(*iter).print();
+	//}
+	//cout << "*************Transimiter******************" << endl;
+	//for (Itertype iter = Ter.begin(); iter != Ter.end(); ++iter)
+	//{
+	//	(*iter).print();
+	//}
 
 	clock_t finish = clock();
 	cout << double(finish - start)/ CLOCKS_PER_SEC << " (s) " << endl;

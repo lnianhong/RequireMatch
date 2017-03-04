@@ -111,7 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Exchange_Item.cpp" />
-    <ClCompile Include="main2.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="requirematch.cpp" />
   </ItemGroup>
   <ItemGroup>

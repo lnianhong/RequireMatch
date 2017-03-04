@@ -2,32 +2,38 @@
 #ifndef REQUIREMATCH_h
 #define REQUIREMATCH_h
 #include"Exchange_Item.h"
-#include <vector>  
+#include <vector> 
+#include <list> 
 #include <string>
 
-typedef std::vector<Exchange_Item>::iterator Itertype;
-typedef std::vector<Exchange_Item>::difference_type difftype;
+typedef std::list<Exchange_Item> ExContainer;
+typedef ExContainer::iterator Itertype;
+typedef ExContainer::difference_type difftype;
+//typedef std::vector<Exchange_Item>::iterator Itertype;
+//typedef std::vector<Exchange_Item>::difference_type difftype;
+
 
 bool compID(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compOrder(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItemNoMaxWeight(const Exchange_Item& Item1, const Exchange_Item& Item2);
 bool compItem(const Exchange_Item& Item1, const Exchange_Item& Item2);
 
-bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename);
-bool readCSVdata(std::vector<Exchange_Item>& Rer, const std::string csvfilename, int startOrder);
-int dealRepetition(std::vector<Exchange_Item>& Rer, std::vector<Exchange_Item>& Ter);
-difftype finishedNum(std::vector<Exchange_Item>& Rer);
+bool readCSVdata(ExContainer& Rers, const std::string csvfilename);
+bool readCSVdata(ExContainer& Rers, const std::string csvfilename, int startOrder);
+size_t dealRepetition(ExContainer& Rers, ExContainer& Ters);
+difftype finishedNum(ExContainer& Rers);
 
 void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x);
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, int k);
+bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, size_t k);
 bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n);
 bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& it1, Itertype& it2);
-void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
+Itertype listIterAdd(Itertype iter, difftype n);
+void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
 					difftype & Sp0_num,difftype & Lp0_num);
-std::vector<int> getExTimes(std::vector<Exchange_Item>& Rer);
-int sumExTimes(std::vector<Exchange_Item>& Rer);
-Itertype maxExTimes(std::vector<Exchange_Item>& Rer);
-void writeResult(std::vector<Exchange_Item>& Rer, std::string result_file);
+std::vector<int> getExTimes(ExContainer& Rers);
+int sumExTimes(ExContainer& Rers);
+Itertype maxExTimes(ExContainer& Rers);
+void writeResult(ExContainer& Rers, std::string result_file);
 //class Solution {
 //public:
 //	vector&lt; vector &gt; findZeroSumInSortedArr(vector &num, int begin, int count, int target)

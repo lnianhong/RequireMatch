@@ -161,52 +161,6 @@ bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target,
 	return false;
 }
 
-//subsetsum
-void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x)
-{
-	std::cout << "{";
-	for (unsigned int i = 0; i < x.size(); ++i)
-	{
-		if (x[i])
-		{
-			std::cout << w[i] << " ";
-		}
-	}
-	std::cout << "}";
-	std::cout << std::endl;
-}
-
-//先返回元素多的
-//decrease order
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, size_t k)
-{
-	if (k >= w.size() || sum >= targetsum)
-		return true;
-	x[k] = true;
-	if (sum + w[k] == targetsum)
-		printSubsetSum(w, x);
-	//include w[k]
-	subsetSum(w, x, sum + w[k], targetsum, k + 1);
-	//uninclude w[k]
-	x[k] = false;
-	subsetSum(w, x, sum, targetsum, k + 1);
-	return false;
-}
-//increase order
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n)//先返回元素少的
-{
-	if (n<0 || targetsum <= 0)
-		return true;
-	x[n] = true;
-	if (targetsum == w[n])
-		printSubsetSum(w, x);
-	//include W[n]
-	subsetSum(w, x, targetsum - w[n], n - 1);
-	//uninclude W[n]
-	x[n] = false;
-	subsetSum(w, x, targetsum, n - 1);
-	return false;
-}
 
 Itertype listIterAdd(Itertype iter, difftype n)
 {

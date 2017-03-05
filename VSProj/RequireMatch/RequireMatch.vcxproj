@@ -113,11 +113,13 @@
     <ClCompile Include="Exchange_Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="requirematch.cpp" />
+    <ClCompile Include="SubSetSUM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSVRow.h" />
     <ClInclude Include="Exchange_Item.h" />
     <ClInclude Include="requirematch.h" />
+    <ClInclude Include="SubSetSUM.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

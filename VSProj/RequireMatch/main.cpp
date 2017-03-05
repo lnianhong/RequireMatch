@@ -11,8 +11,6 @@
 
 using namespace std;
 
-
-
 int main() {
 	cout << "Please enter the lable of the file:";
 	string suffix;

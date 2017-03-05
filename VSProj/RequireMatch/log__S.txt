@@ -1,4 +1,4 @@
-Time:75.957 (s) 
+Time:0.003 (s) 
 Sum of exchange times:	11
 Maxium exchange times of Rers:	3
 Maxium exchange times of Ters:	2

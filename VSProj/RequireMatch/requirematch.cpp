@@ -355,12 +355,16 @@ int sumExTimes(ExSaver& Rers)
 	return std::accumulate(ExTimes.begin(), ExTimes.end(), 0);
 }
 
-
 ExSaver::iterator maxExTimes(ExSaver& Rers)
 {
 	std::vector<int> ExTimes = getExTimes(Rers);
 	std::vector<int>::iterator it = std::max_element(ExTimes.begin(), ExTimes.end());
-	ExSaver::iterator iter = Rers.begin()+ distance(ExTimes.begin(), it);
+	ExSaver::iterator iter = Rers.begin();
+	std::vector<int>::difference_type dist = distance(ExTimes.begin(), it);
+	for (std::vector<int>::difference_type i = 0; i < dist; i++)
+	{
+		iter++;
+	}
 	return iter;
 }
 

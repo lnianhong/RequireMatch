@@ -58,8 +58,6 @@ int main() {
 		iterT = Ters.begin();
 	}
 
-
-
 	while (Rers.size() && Ters.size())
 	{
 		if (Ters.back().getResMoney() > Rers.back().getResMoney())
@@ -71,10 +69,10 @@ int main() {
 		if (RersSaver.size() % 1000 == 0)
 			cout << "Rp0_num/Rers_size:\t" << RersSaver.size() << "/" << Rers.size() << endl;
 	}
-	sort(RersSaver.begin(), RersSaver.end(), compOrder);
-	sort(TersSaver.begin(), TersSaver.end(), compOrder);
-	//Rers.sort(compOrder);
-	//Ters.sort(compOrder);
+	//sort(RersSaver.begin(), RersSaver.end(), compOrder);
+	//sort(TersSaver.begin(), TersSaver.end(), compOrder);
+	RersSaver.sort(compOrder);
+	TersSaver.sort(compOrder);
 	clock_t finish = clock();
 	string result_log = "log_" + suffix + ".txt";
 	double t = double(finish - start) / CLOCKS_PER_SEC;
@@ -83,8 +81,8 @@ int main() {
 	cout << "Sum of exchange times:\t"<<sumExTimes(RersSaver) << endl;
 	cout << "Maxium exchange times of Rers:\t" << (*maxExTimes(RersSaver)).getWeight() << endl;
 	cout << "Maxium exchange times of Ters:\t" << (*maxExTimes(TersSaver)).getWeight() << endl;
-	string Rresult_file = "R_result_mixed_" + suffix + ".csv";
-	string Tresult_file = "T_result_mixed_" + suffix + ".csv";
+	string Rresult_file = "R_result_mixed2_" + suffix + ".csv";
+	string Tresult_file = "T_result_mixed2_" + suffix + ".csv";
 	writeResult(RersSaver, Rresult_file);
 	writeResult(TersSaver, Tresult_file);
 	system("pause");

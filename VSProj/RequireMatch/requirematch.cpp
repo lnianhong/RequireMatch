@@ -164,53 +164,6 @@ bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target,
 	return false;
 }
 
-//subsetsum
-void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x)
-{
-	std::cout << "{";
-	for (unsigned int i = 0; i < x.size(); ++i)
-	{
-		if (x[i])
-		{
-			std::cout << w[i] << " ";
-		}
-	}
-	std::cout << "}";
-	std::cout << std::endl;
-}
-
-//先返回元素多的
-//decrease order
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, int k)
-{
-	if (k >= w.size() || sum >= targetsum)
-		return true;
-	x[k] = true;
-	if (sum + w[k] == targetsum)
-		printSubsetSum(w, x);
-	//include w[k]
-	subsetSum(w, x, sum + w[k], targetsum, k + 1);
-	//uninclude w[k]
-	x[k] = false;
-	subsetSum(w, x, sum, targetsum, k + 1);
-	return false;
-}
-//increase order
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n)//先返回元素少的
-{
-	if (n<0 || targetsum <= 0)
-		return true;
-	x[n] = true;
-	if (targetsum == w[n])
-		printSubsetSum(w, x);
-	//include W[n]
-	subsetSum(w, x, targetsum - w[n], n - 1);
-	//uninclude W[n]
-	x[n] = false;
-	subsetSum(w, x, targetsum, n - 1);
-	return false;
-}
-
 //交换问题
 void exchangeFun(std::vector<Exchange_Item>& largeVec, std::vector<Exchange_Item>& smallVec,
 				 difftype & Sp0_num,difftype & Lp0_num )
@@ -299,6 +252,17 @@ Itertype maxExTimes(std::vector<Exchange_Item>& Rer)
 }
 
 
+void writeLog(std::string result_log, std::vector<Exchange_Item>& Rers, std::vector<Exchange_Item>& Ters, double t)
+{
+	std::ofstream outfile;
+	outfile.open(result_log, std::ofstream::out);
+
+	outfile << "Time:" << t << " (s) " << std::endl;
+	outfile << "Sum of exchange times:\t" << sumExTimes(Rers) << std::endl;
+	outfile << "Maxium exchange times of Rers:\t" << (*maxExTimes(Rers)).getWeight() << std::endl;
+	outfile << "Maxium exchange times of Ters:\t" << (*maxExTimes(Ters)).getWeight() << std::endl;
+	outfile.close();
+}
 
 // write the result
 void writeResult(std::vector<Exchange_Item>& Rer,std::string result_file)

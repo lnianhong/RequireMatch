@@ -1,89 +1,68 @@
-#include <iostream>
-#include <vector>
+#include <iostream>  
+#include <vector>  
+#include <bitset>  
+#include "Exchange_Item.h"
+#include "requirematch.h"
+#include "CSVRow.h"
+#include <cstdlib>
 #include <algorithm>
-#include <string>
+#include <ctime> 
+#include <iterator> 
 
 using namespace std;
 
-//find if the given subset sum exists.
-int findSubsetSum(vector<int>& arr, int given, vector<bool>& included)
-{
-	int cur = 0; // 指向当前值.
-	int sum = 0; // 当前子集合和.
+int main() {
+	cout << "Please enter the label of the file:";
+	string suffix;
+	cin >> suffix;
+	clock_t start = clock();
+	vector<Exchange_Item> Rer;//contain of receivers
+	vector<Exchange_Item> Ter;//contain of transimiters
+	//typedef vector<Exchange_Item>::iterator ItemItertype;
+	string Rer_file = "receiver" + suffix + ".csv";
+	string Ter_file	= "transimitter" + suffix + ".csv";
 
-	while (cur >= 0)
+	readCSVdata(Rer, Rer_file,1);// initiation
+	readCSVdata(Ter, Ter_file,1);
+	int a = 1;
+	a = dealRepetition(Rer, Ter);//除了为Res_money==0的元素不再有Rer和Ter中不再有Res相等的了。
+	
+	sort(Rer.begin(), Rer.end(), compItemNoMaxWeight);
+	sort(Ter.begin(), Ter.end(), compItemNoMaxWeight);
+	a = distance(Rer.begin(), Rer.end());
+	// the first Item whose res_money >0 
+	difftype Rp0_num = finishedNum(Rer);
+	//Rer.begin()+Rp0_num ponited the first nonezeroItem
+	difftype Tp0_num = finishedNum(Ter);
+
+	Itertype it1, it2;
+	Exchange_Item tmp, tmp1, tmp2;
+	difftype dist1(0), dist2(0);
+	while (Rp0_num<Rer.size() && Tp0_num < Ter.size())
 	{
-		//if current one is not included
-		if (false == included[cur])
+		if (Ter.back().getResMoney() > Rer.back().getResMoney())
 		{
-			//include current one
-			included[cur] = true;
-			sum += arr[cur];
-			//find the given subset sum
-			if (sum == given)
-			{
-				return 1;
-			}
-			else if (sum > given) //exceed the given sum
-			{
-				included[cur] = false;
-				sum -= arr[cur];
-			}
-			cur++;
+			exchangeFun(Ter, Rer, Rp0_num, Tp0_num);
 		}
-		//backtrace
-		if (cur >= arr.size())
-		{
-			/*
-			** 下面两个循环依次排除匹配不成功的结果中
-			** 包括在结果内以及不包括在结果内的元素
-			** 直到找到下一个包括在结果内的元素
-			** 例如：用1和0表示包括和未包括
-			** 若结果为1110011，则第三个1为所找元素
-			** 将其变为0，但是从第4个0开始遍历。
-			**/
-			while (true == included[cur - 1])
-			{
-				cur--;
-				included[cur] = false;
-				sum -= arr[cur];
-				//backtrace to the head
-				if (cur < 1)
-					return 0;
-			}
-			while (false == included[cur - 1])
-			{
-				cur--;
-				if (cur < 1)
-					return 0;
-			}
-			//change the status of current - 1,not current!
-			included[cur - 1] = false;
-			sum -= arr[cur - 1];
-		}
+		else
+			exchangeFun(Rer, Ter, Tp0_num, Rp0_num);
 	}
-	return 0;
-}
+	sort(Rer.begin(), Rer.end(), compOrder);
+	sort(Ter.begin(), Ter.end(), compOrder);
 
+	clock_t finish = clock();
 
-
-int main()
-{
-	int arr[] = { 2,5,15,8,20 };
-	vector<int> v(arr, arr + sizeof(arr) / sizeof(int));
-	vector<bool> included(sizeof(arr) / sizeof(int), false);
-	int given = 33;//5+8+20
-
-	if (findSubsetSum(v, given, included))
-	{
-		vector<bool>::iterator iterb = included.begin();
-		vector<int>::iterator iteri = v.begin();
-		for (; iterb != included.end(); iterb++, iteri++)
-		{
-			if (*iterb)
-				cout << *iteri << endl;
-		}
-	}
+	string result_log = "log_" + suffix + ".txt";
+	double t = double(finish - start) / CLOCKS_PER_SEC;
+	writeLog(result_log, Rer, Ter, t);
+	cout << t << " (s) " << endl;
+	cout << "Sum of exchange times:\t"<<sumExTimes(Rer) << endl;
+	cout << "Maxium exchange times of Rer:\t" << (*maxExTimes(Rer)).getWeight() << endl;
+	cout << "Maxium exchange times of Ter:\t" << (*maxExTimes(Ter)).getWeight() << endl;
+	string Rresult_file = "R_result_" + suffix + ".csv";
+	string Tresult_file = "T_result_" + suffix + ".csv";
+	writeResult(Rer, Rresult_file);
+	writeResult(Ter, Tresult_file);
 	system("pause");
-
+	return 0;
 }

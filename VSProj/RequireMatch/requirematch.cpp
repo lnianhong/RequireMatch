@@ -284,12 +284,64 @@ void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
 	}
 }
 
+// for mixed
+void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
+				  ExSaver & largeSaver, ExSaver & smallSaver)
+{
+	Itertype it1, it2;
+	Exchange_Item tmp, tmp1, tmp2;
+	if (has2sum(smallCont.begin(), smallCont.end(), largeCont.back(), it1, it2))//it1 is in the front of it2
+	{
+		//set the exchange info
+		largeCont.back().addExchangeInfo((*it1).getID(), (*it1).getResMoney());
+		largeCont.back().addExchangeInfo((*it2).getID(), (*it2).getResMoney());
+		largeCont.back().weightIncrease(2);
+		largeCont.back().setResMoney(0);
+		tmp = largeCont.back();
+		(*it1).addExchangeInfo(tmp.getID(), (*it1).getResMoney());
+		(*it1).weightIncrease();
+		(*it1).setResMoney(0);
+		(*it2).addExchangeInfo(tmp.getID(), (*it2).getResMoney());
+		(*it2).weightIncrease();
+		(*it2).setResMoney(0);
+		//change the Ters 
+		largeCont.pop_back();
+		largeSaver.push_back(tmp);
+		//change the Rers 
+		smallSaver.push_back(*it2);
+		smallSaver.push_back(*it1);
+		smallCont.erase(it2);
+		smallCont.erase(it1);
+	}
+	else //处理2个Item，一个为0，一个减小并插入（另一列中不会有相等的数）
+	{
+		largeCont.back().addExchangeInfo(smallCont.back().getID(), smallCont.back().getResMoney());
+		largeCont.back().weightIncrease();
+		largeCont.back().setResMoney(largeCont.back().getResMoney() - smallCont.back().getResMoney());
+
+		smallCont.back().addExchangeInfo(largeCont.back().getID(), smallCont.back().getResMoney());
+		smallCont.back().weightIncrease();
+		smallCont.back().setResMoney(0);
+		//change the largeCont 
+		tmp = largeCont.back();
+		largeCont.pop_back();
+		// 插在第一个大于等于的值的前面
+		Itertype iter_insert = lower_bound(largeCont.begin(), largeCont.end(), tmp, compItem);
+		largeCont.insert(iter_insert, tmp);
+		//change the smallCont
+		smallSaver.push_back(smallCont.back());
+		smallCont.pop_back();
+	}
+}
+
+
 // get sum and maxium  of the exchange Times
-std::vector<int> getExTimes(ExContainer& Rers)
+
+std::vector<int> getExTimes(ExSaver& Rers)
 {
 	std::vector<int> ExTimes(Rers.size(), 0);
 	int j(0);
-	for (Itertype i = Rers.begin(); i!= Rers.end(); i++)
+	for (ExSaver::iterator i = Rers.begin(); i!= Rers.end(); i++)
 	{
 		ExTimes[j] = (*i).getWeight();
 		j++;
@@ -297,25 +349,25 @@ std::vector<int> getExTimes(ExContainer& Rers)
 	return ExTimes;
 }
 
-int sumExTimes(ExContainer& Rers)
+int sumExTimes(ExSaver& Rers)
 {
 	std::vector<int> ExTimes = getExTimes(Rers);
 	return std::accumulate(ExTimes.begin(), ExTimes.end(), 0);
 }
 
-Itertype maxExTimes(ExContainer& Rers)
+
+ExSaver::iterator maxExTimes(ExSaver& Rers)
 {
 	std::vector<int> ExTimes = getExTimes(Rers);
 	std::vector<int>::iterator it = std::max_element(ExTimes.begin(), ExTimes.end());
-	Itertype iter = listIterAdd(Rers.begin(), distance(ExTimes.begin(), it));
+	ExSaver::iterator iter = Rers.begin()+ distance(ExTimes.begin(), it);
 	return iter;
 }
 
 
 
 // write the result
-
-void writeLog(std::string result_log, ExContainer& Rers, ExContainer& Ters, double t)
+void writeLog(std::string result_log, ExSaver& Rers, ExSaver& Ters, double t)
 {
 	std::ofstream outfile;
 	outfile.open(result_log, std::ofstream::out);
@@ -326,7 +378,8 @@ void writeLog(std::string result_log, ExContainer& Rers, ExContainer& Ters, doub
 	outfile << "Maxium exchange times of Ters:\t" << (*maxExTimes(Ters)).getWeight() << std::endl;
 	outfile.close();
 }
-void writeResult(ExContainer& Rers,std::string result_file)
+
+void writeResult(ExSaver& Rers,std::string result_file)
 {
 	std::ofstream outfile;
 	outfile.open(result_file,std::ofstream::out);
@@ -334,7 +387,7 @@ void writeResult(ExContainer& Rers,std::string result_file)
 	outfile << "User_ID,Money,ResMoney,Times,ExID1,"
 		<< "Money1,ExID1,Money2,ExID3,Money3,ExID4,Money4,ExID5,Money5" << std::endl;
 
-	for (Itertype i = Rers.begin(); i != Rers.end(); i++)
+	for (ExSaver::iterator i = Rers.begin(); i != Rers.end(); i++)
 	{
 		outfile << (*i).getID() << ","
 				<< (*i).getMoney() << ","

@@ -7,6 +7,7 @@
 #include <string>
 
 typedef std::list<Exchange_Item> ExContainer;
+typedef std::vector<Exchange_Item> ExSaver;
 typedef ExContainer::iterator Itertype;
 typedef ExContainer::difference_type difftype;
 //typedef std::vector<Exchange_Item>::iterator Itertype;
@@ -30,11 +31,22 @@ bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& i
 Itertype listIterAdd(Itertype iter, difftype n);
 void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
 					difftype & Sp0_num,difftype & Lp0_num);
-std::vector<int> getExTimes(ExContainer& Rers);
-int sumExTimes(ExContainer& Rers);
-Itertype maxExTimes(ExContainer& Rers);
-void writeResult(ExContainer& Rers, std::string result_file);
-void writeLog(std::string result_log, ExContainer& Rers, ExContainer& Ters, double t);
+
+void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
+	ExSaver & largeSaver, ExSaver & smallSaver);
+
+std::vector<int> getExTimes(ExSaver& Rers);
+
+int sumExTimes(ExSaver& Rers);
+
+ExSaver::iterator maxExTimes(ExSaver& Rers);
+
+
+void writeResult(ExSaver& Rers, std::string result_file);
+
+
+void writeLog(std::string result_log, ExSaver& Rers, ExSaver& Ters, double t);
+
 //class Solution {
 //public:
 //	vector&lt; vector &gt; findZeroSumInSortedArr(vector &num, int begin, int count, int target)

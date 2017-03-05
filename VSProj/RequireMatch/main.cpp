@@ -31,6 +31,8 @@ int main() {
 	clock_t start = clock();
 	ExContainer Rers;//contain of receivers
 	ExContainer Ters;//contain of transimiters
+	ExSaver RersSaver;//contain of receivers
+	ExSaver TersSaver;//contain of transimiters
 	//typedef vector<Exchange_Item>::iterator ItemItertype;
 	string Rers_file = "receiver" + suffix + ".csv";
 	string Ters_file	= "transimitter" + suffix + ".csv";
@@ -41,40 +43,50 @@ int main() {
 	
 	Rers.sort(compItemNoMaxWeight);
 	Ters.sort(compItemNoMaxWeight);
+	Itertype iterR = Rers.begin();
+	while ((*iterR).getResMoney()==0)
+	{
+		RersSaver.push_back(*iterR);
+		Rers.pop_front();
+		iterR = Rers.begin();
+	}
+	Itertype iterT = Ters.begin();
+	while ((*iterT).getResMoney() == 0)
+	{
+		TersSaver.push_back(*iterT);
+		Ters.pop_front();
+		iterT = Ters.begin();
+	}
 
-	// the first Item whose res_money >0 
-	difftype Rp0_num = finishedNum(Rers);
-	//Rers.begin()+Rp0_num ponited the first nonezeroItem
-	difftype Tp0_num = finishedNum(Ters);
 
-	ExContainer::size_type Rers_size = Rers.size();
-	ExContainer::size_type Ters_size = Ters.size();
 
-	while (Rp0_num<Rers_size && Tp0_num < Ters_size)
+	while (Rers.size() && Ters.size())
 	{
 		if (Ters.back().getResMoney() > Rers.back().getResMoney())
 		{
-			exchangeFunc(Ters, Rers, Rp0_num, Tp0_num);
+			exchangeFunc(Ters, Rers, TersSaver, RersSaver);
 		}
 		else
-			exchangeFunc(Rers, Ters, Tp0_num, Rp0_num);
-		if (Rp0_num % 1000 == 0)
-			cout << "Rp0_num/Rers_size:\t" << Rp0_num << "/" << Rers_size << endl;
+			exchangeFunc(Rers, Ters, RersSaver, TersSaver);
+		if (RersSaver.size() % 1000 == 0)
+			cout << "Rp0_num/Rers_size:\t" << RersSaver.size() << "/" << Rers.size() << endl;
 	}
-	Rers.sort(compOrder);
-	Ters.sort(compOrder);
+	sort(RersSaver.begin(), RersSaver.end(), compOrder);
+	sort(TersSaver.begin(), TersSaver.end(), compOrder);
+	//Rers.sort(compOrder);
+	//Ters.sort(compOrder);
 	clock_t finish = clock();
 	string result_log = "log_" + suffix + ".txt";
 	double t = double(finish - start) / CLOCKS_PER_SEC;
-	writeLog(result_log, Rers, Ters, t);
+	writeLog(result_log, RersSaver, TersSaver, t);
 	cout << t << " (s) " << endl;
-	cout << "Sum of exchange times:\t"<<sumExTimes(Rers) << endl;
-	cout << "Maxium exchange times of Rers:\t" << (*maxExTimes(Rers)).getWeight() << endl;
-	cout << "Maxium exchange times of Ters:\t" << (*maxExTimes(Ters)).getWeight() << endl;
-	string Rresult_file = "R_result_list_" + suffix + ".csv";
-	string Tresult_file = "T_result_list_" + suffix + ".csv";
-	writeResult(Rers, Rresult_file);
-	writeResult(Ters, Tresult_file);
+	cout << "Sum of exchange times:\t"<<sumExTimes(RersSaver) << endl;
+	cout << "Maxium exchange times of Rers:\t" << (*maxExTimes(RersSaver)).getWeight() << endl;
+	cout << "Maxium exchange times of Ters:\t" << (*maxExTimes(TersSaver)).getWeight() << endl;
+	string Rresult_file = "R_result_mixed_" + suffix + ".csv";
+	string Tresult_file = "T_result_mixed_" + suffix + ".csv";
+	writeResult(RersSaver, Rresult_file);
+	writeResult(TersSaver, Tresult_file);
 	system("pause");
 	return 0;
 }

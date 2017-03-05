@@ -12,7 +12,7 @@
 using namespace std;
 
 int main() {
-	cout << "Pleasr enter the lable of the file:";
+	cout << "Pleasr enter the label of the file:";
 	string suffix;
 	cin >> suffix;
 	clock_t start = clock();

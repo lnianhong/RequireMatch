@@ -11,23 +11,12 @@
 
 using namespace std;
 
-//int main() {
-//	//{ 2,5,15,8,20 };
-//	int arr[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,20 };
-//	//int arr[] = { 0,20 };
-//	vector<int> W(arr, arr + sizeof(arr) / sizeof(int));
-//	vector<bool> included(sizeof(arr) / sizeof(int), false);
-//	vector<bool> includedv2(sizeof(arr) / sizeof(int), false);
-//	subsetSum(W, included, 0, 20, 0);//decrease order
-//	cout << "*********increase order********" << endl;
-//	subsetSum(W, includedv2, 20, W.size()-1);//increase order
-//
-//	system("pause");
-//	return 0;
-//}
+
 
 int main() {
-	string suffix("part");
+	cout << "Please enter the lable of the file:";
+	string suffix;
+	cin >> suffix;
 	clock_t start = clock();
 	ExContainer Rers;//contain of receivers
 	ExContainer Ters;//contain of transimiters
@@ -80,14 +69,3 @@ int main() {
 }
 
 
-//has2sum(Rers.begin()+ Rp0_num, Rers.end(),Ters.back(),it1,it2);
-//cout << "*************Receiver******************" << endl;
-//for (Itertype iter = Rers.begin(); iter != Rers.end(); ++iter)
-//{
-//	(*iter).print();
-//}
-//cout << "*************Transimiter******************" << endl;
-//for (Itertype iter = Ters.begin(); iter != Ters.end(); ++iter)
-//{
-//	(*iter).print();
-//}

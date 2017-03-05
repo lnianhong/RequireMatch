@@ -22,13 +22,11 @@ bool readCSVdata(ExContainer& Rers, const std::string csvfilename, int startOrde
 size_t dealRepetition(ExContainer& Rers, ExContainer& Ters);
 difftype finishedNum(ExContainer& Rers);
 
-void printSubsetSum(const std::vector<int> & w, const std::vector<bool>& x);
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int sum, int targetsum, size_t k);
-bool subsetSum(const std::vector<int>& w, std::vector<bool> x, int targetsum, int n);
+
 bool has2sum(Itertype& first, Itertype& last, Exchange_Item& target, Itertype& it1, Itertype& it2);
-Itertype listIterAdd(Itertype iter, difftype n);
-void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
-					difftype & Sp0_num,difftype & Lp0_num);
+//Itertype listIterAdd(Itertype iter, difftype n);
+//void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
+//					difftype & Sp0_num,difftype & Lp0_num);
 
 void exchangeFunc(ExContainer& largeCont, ExContainer& smallCont,
 	ExSaver & largeSaver, ExSaver & smallSaver);

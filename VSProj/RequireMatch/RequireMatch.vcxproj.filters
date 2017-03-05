@@ -24,6 +24,9 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SubSetSUM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exchange_Item.h">
@@ -33,6 +36,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CSVRow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SubSetSUM.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,0 +1,5 @@
+程序要求输出文件标签
+文件格式为:第一列为ID，第二列为金额
+文件标签为：receiverXXX.csv ,其中XXX为文件标签，打款和收款文件一致
+_S:表示是输入的文件为receiver_S.csv和transimitter_S.csv
+part:表示输入的文件为receiverpart.csv和transimitterpart.csv

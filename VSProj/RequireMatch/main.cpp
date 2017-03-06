@@ -76,3 +76,31 @@ int main() {
 	return 0;
 }
 
+
+
+
+//ExContainer Rers;//元素为收款人的容器
+//ExContainer Ters;//元素为打款人的容器
+//ExSaver RersSaver;//元素为完成交易的收款人的容器
+//ExSaver TRersSaver;//元素为完成交易的打款人的容器
+//readCSVdata(Rers, Rers_file, 1);// 从CSV入数据
+//readCSVdata(Ters, Ters_file, 1);
+//
+//dealRepetition(Rers, Ters);//排序+对冲抵消 O（NlogN）+O(N)
+//Rers.sort(compItemNoMaxWeight);//再排序，完成交易的元素余额为0，排前面 O（NlogN）
+//Ters.sort(compItemNoMaxWeight);//再排序，完成交易的元素余额为0，排前面 O（NlogN）
+//toSaver（Rers，RersSaver）//将完成交易的元素存入RersSaver并从Rers中删除  O(N)
+//toSaver（Ters，TersSaver）
+//while (Rers.size() && Ters.size())//O（N）
+//{
+//	if (Ters.back().getResMoney() > Rers.back().getResMoney())
+//		exchangeFunc(Ters, Rers, TersSaver, RersSaver);//其中包括has2sum和交易记录,二分插入操作
+//	else
+//		exchangeFunc(Rers, Ters, RersSaver, TersSaver);// O(N)+O（logN）
+//}
+//RersSaver.sort(compOrder);//排序，按照原始顺序
+//TersSaver.sort(compOrder);//排序，按照原始顺序
+//writeResult(RersSaver, Rresult_file);//写结果
+//writeResult(TersSaver, Tresult_file);//写结果
+
+
